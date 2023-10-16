@@ -17,28 +17,27 @@ string numeroruleta(int n, int numero){
 }
 
 void marcoRuleta(){
-    int Numero[33]={7,18,25,10,15,3,16,31,8,29,2,23,13,6,9,30,5,12,27,4,21,17,28,19,14,11,26,1,20,24,22,32,33};
+    int Numero[30]={30, 16, 9, 6, 11, 19, 15, 7, 8, 25, 17, 10, 29, 18, 27, 5, 1, 14, 22, 2, 21, 28, 3, 20, 13, 4, 23, 26, 12, 24};
     //int Numero[32]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32};
     int n, bandera, contador, contador2;
     n=0;
     for(int i=0;i<1;i++){// hacer la animacion de la ruleta
         bandera=0;
         contador=0;
-        contador2=33;
-        cout<<"     ___________________"<<endl;
-        cout<<"   /";
+        contador2=30;
+        
 
 ///////////////////////////////////////////////////        
-        for(n=0;n<10;n++){
+        for(n=0;n<9;n++){
             if(n==0){
                 bandera=9;
             }else{
                 
-                if(n==9){
-                    bandera=8;
+                if(n==7){
+                    bandera=9;
                 }else{
                     if(n>=1){
-                        if(n<=8){
+                        if(n<=6){
                             bandera=1;
                         }
                         
@@ -57,18 +56,18 @@ void marcoRuleta(){
                     cout<<numeroruleta(contador, Numero[contador]);
                     
                     
-
                 }else{
                     if(n>=1){
-                        if(n<=8){
+                        if(n<=6){
                             contador2=contador2-1;
-                            cout<<numeroruleta((contador2), Numero[(contador2)]);
+                            cout<<numeroruleta((contador2), Numero[(contador2)])<<"                         ";
+                            if(n==5){
+                                cout<<" ";
+                            }
                             cout<<numeroruleta(contador, Numero[contador]);
-                        }else{
-                            
                         }
                     }
-                    if(n==9){
+                    if(n==7){
                         contador2=contador2-1;
                         cout<<numeroruleta(contador2,Numero[contador2]);
                         
@@ -76,12 +75,10 @@ void marcoRuleta(){
                 }
                 contador++;
             }
-            cout<<"\n";
+            cout<<"\n\n";
             
             
         }
-        cout<<" /"<<endl;
-        cout<<"   \\____________________/"<<endl;
       
     }
     
