@@ -6,12 +6,10 @@ using namespace std;
 
 string numeroruleta(int n, int numero){
     
-        cout<<" ";
-    
     if(n%2==0){
-        return (" \033[37m"+to_string(numero)+"\033[0m");
+        return (" \033[37m"+to_string(numero)+"\033[0m ");
     }else{
-        return(" \033[31m"+to_string(numero)+"\033[0m");
+        return(" \033[31m"+to_string(numero)+"\033[0m ");
     }
     
 }
@@ -19,7 +17,8 @@ string numeroruleta(int n, int numero){
 void marcoRuleta(){
     int Numero[30]={30, 16, 9, 6, 11, 19, 15, 7, 8, 25, 17, 10, 29, 18, 27, 5, 1, 14, 22, 2, 21, 28, 3, 20, 13, 4, 23, 26, 12, 24};
     //int Numero[32]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32};
-    int n, bandera, contador, contador2;
+    int n, bandera, contador, contador2, detentesatanas;
+    detentesatanas=31;
     n=0;
     for(int i=0;i<1;i++){// hacer la animacion de la ruleta
         bandera=0;
@@ -54,6 +53,7 @@ void marcoRuleta(){
                 
                 if(n==0){
                     cout<<numeroruleta(contador, Numero[contador]);
+                    
                     
                     
                 }else{
@@ -100,8 +100,31 @@ void marcoRuleta(){
     */
 }
 main(){
-    int contador, opcion1, opcion2, n;
-    //cout<<"Para jugar la ruleta seleccione una de los tipos de apuesta a continuacion"<<endl;
+    int opcion, apuesta, vApostado;
+    cout<<"Para jugar la ruleta seleccione una de los tipos de apuesta a continuacion: "<<endl;
+    cout<<"1. Apostar a color."<<endl;
+    cout<<"2. Apostar a par o impar."<<endl;
+    cout<<"3. Apostar a numero."<<endl;
+    cout<<"Ingrese el numero de opcion a elegir: ";
+    cin>>opcion;
+    if(opcion==1){
+        cout<<"Ingrese a que color desea apostar: ";
+        cin>>apuesta;
+    }else{
+        if(opcion==2){
+            cout<<"Ingrese el numero de opcion a la que desea apostar: "<<endl;
+            cout<<"1. Par"<<endl;
+            cout<<"2. Impar"<<endl;
+            cin>>apuesta;
+
+        }else{
+            if(opcion==3){
+                cout<<"Ingrese el numero al que desea apostar(1-30): ";
+                cin>>apuesta;
+
+            }
+        }
+    }
     marcoRuleta();
     
     
