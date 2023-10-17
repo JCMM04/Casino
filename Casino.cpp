@@ -17,56 +17,17 @@ int numeroruleta(int n, int numero, int i){
         }
     }
     return(0);
-    /*
-    if(opcion==1){
-        if(par==0){
-            if(numero%2==0){
-                return 1;
-            }else{
-                return 0;
-            }
-        }else{
-            if(numero%2!=0){
-                return 1;
-            }else{
-                return 0;
-            }
-        }
-    }
-    if(opcion==2){
-        if(apuesta==1){
-            if(numero%2==0){
-                return 1;
-            }else{
-                return 0;
-            }
-        }else{
-            if(numero%2!=0){
-                return 1;
-            }else{
-                return 0;
-            }
-        }
-    }
-    if(opcion==3){
-        if(apuesta==numero){
-            return 1;
-        }else{
-            return 0;
-        }
-    }
-    */
     
 }
 
-void marcoRuleta(int opcion, int apuesta, int detentesatanas){
+void marcoRuleta(int opcion, int apuesta, int resultado){
     int Numero[30]={30, 16, 9, 6, 11, 19, 15, 7, 8, 25, 17, 10, 29, 18, 27, 5, 1, 14, 22, 2, 21, 28, 3, 20, 13, 4, 23, 26, 12, 24};
-    //int Numero[32]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32};
+
     int n, bandera, contador, contador2;
     
     
     n=0;
-    for(int i=0;i<detentesatanas;i++){// hacer la animacion de la ruleta
+    for(int i=0;i<resultado;i++){// hacer la animacion de la ruleta
         Sleep(800);
         system("cls");
         bandera=0;
@@ -128,31 +89,14 @@ void marcoRuleta(int opcion, int apuesta, int detentesatanas){
         }
         
     }
-    if(Numero[detentesatanas-1]==apuesta){
+    if(Numero[resultado-1]==apuesta){
         cout<<"Ganaste papucho";
     }else{
         cout<<"Perdiste wapo";
     }
-    
-    /*
-    cout<<"     ___________________"<<endl;
-    cout<<"   / 1 2 3 4 5 6 7 8 9 \\"<<endl;
-    cout<<"  / 32                  10\\"<<endl;   22
-    cout<<"* |31                   11| *"<<endl;
-    cout<<"* |30                   12| *"<<endl;
-    cout<<"* |29                   13| *"<<endl;
-    cout<<"* |28                   14| *"<<endl;
-    cout<<"* |27                   15| *"<<endl;
-    cout<<"* |26                   16| *"<<endl;
-    cout<<"* |25                   17| *"<<endl;
-    cout<<"  \\ 24 23 22 21 20 19 18 /"<<endl;
-    cout<<"   \\____________________/"<<endl;
-    Sleep(1000);
-    cout<<"hola";
-    */
 }
 main(){
-    int opcion, apuesta, vApostado, detentesatanas;
+    int opcion, apuesta, vApostado, resultado;
     cout<<"Para jugar la ruleta seleccione una de los tipos de apuesta a continuacion: "<<endl;
     cout<<"1. Apostar a color."<<endl;
     cout<<"2. Apostar a par o impar."<<endl;
@@ -172,15 +116,15 @@ main(){
         }else{
             if(opcion==3){
                 //detentesatanas=1+rand() % (31-1);
-                detentesatanas=30;
-                cout<<"--"<<detentesatanas<<"--"<<endl;
+                resultado=30;
+                cout<<"--"<<resultado<<"--"<<endl;
                 cout<<"Ingrese el numero al que desea apostar(1-30): ";
                 cin>>apuesta;
             }
         }
     }
     
-    marcoRuleta(opcion, apuesta, detentesatanas);
+    marcoRuleta(opcion, apuesta, resultado);
     
     
 }
