@@ -1,6 +1,8 @@
 #include<iostream>
 //#include<thread>
 #include<windows.h>
+#include<stdlib.h>
+#include<time.h>
 #include<string>
 using namespace std;
 
@@ -97,6 +99,7 @@ void marcoRuleta(int opcion, int apuesta, int resultado){
 }
 main(){
     int opcion, apuesta, vApostado, resultado;
+    srand(time(NULL));
     cout<<"Para jugar la ruleta seleccione una de los tipos de apuesta a continuacion: "<<endl;
     cout<<"1. Apostar a color."<<endl;
     cout<<"2. Apostar a par o impar."<<endl;
