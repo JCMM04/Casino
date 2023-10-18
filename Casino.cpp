@@ -1,10 +1,15 @@
 #include <iostream>
 #include <ctime>
 #include <map>
+#include <array>
+#include <iterator>
+#include <algorithm>
+#include <stdlib.h>
 
 using namespace std;
 
 //variables globales
+int saldo=0;
 int valorMasoJugador = 0;
 int valorMasoCrupier = 0;
 int AsDelMaso=0;
@@ -16,6 +21,10 @@ string barajaPartida[52];
 void menu();
 string cartaAlAzar();
 int valorMaso(string carta, int valorDelMaso);
+int calcularSaldo(double apuesta, bool resultado);
+double validarApuestas(double monto);
+void SinSaldo();
+void validarSaldo();
 
 main(){
     menu();
@@ -24,11 +33,16 @@ main(){
 void menu(){
     system("cls"); //Borra lo anterior en la consola
     int opcionMenu;
-
+    
     cout << "¡Bienvenido al Casino!" << endl;
+    cout << "Ingrese su saldo inicial: "<<endl;
+    cin>>saldo;
+    validarSaldo();
+    
     cout << "Selecciona un juego:" << endl;
     cout << "1. Ruleta" << endl;
     cout << "2. Blackjack" << endl;
+    cout << "3. Datos y Saldo"<<endl;
     cout << "0. Salir" << endl;
 
     cout << "Ingresa tu elección: ";
@@ -41,38 +55,80 @@ void menu(){
             break;
         case 2:
             char generarCarta;
-            cout << "Bienvenido a Blackjack..." << endl;
-            cout << "El crupier debe plantarse en 17 y robar en 16..."<<endl;
-            cout << "-------------------------------------------------"<<endl;
-            cout << "Maso del crupier..."<<endl;
-            valorMasoCrupier=valorMaso(cartaAlAzar(),valorMasoCrupier);
-            cout<<cartaActual<<endl;
-            cout<<"CALTA OCULTA"<<endl;
-            cout<<"---------------------------------------------------"<<endl;
-            cout<<"Maso incial de jugador... "<<endl;
-            valorMasoJugador=valorMaso(cartaAlAzar(),valorMasoJugador);
-            cout<<cartaActual<<endl;
-            
+            double apuesta;
+            char nuevaRonda;
+           
             do{
+                valorMasoCrupier=0;
+                valorMasoJugador=0;
+                AsDelMaso=0;
+                string barajaMaso[52];
+                string barajaPartida[52];
+                system("cls");
+                SinSaldo();
+                cout << "Bienvenido a Blackjack..." << endl;
+                cout<<"Su saldo actual es: "<<saldo<<endl;
+                cout << "Ingrese su apuesta: "<<endl;
+                cin>>apuesta;
+                apuesta = validarApuestas(apuesta);
+                
+                cout << "El crupier debe plantarse en 17 y robar en 16..."<<endl;
+                cout << "-------------------------------------------------"<<endl;
+                cout << "Maso del crupier..."<<endl;
+                valorMasoCrupier=valorMaso(cartaAlAzar(),valorMasoCrupier);
+                cout<<cartaActual<<endl;
+                cout<<"CARTA OCULTA"<<endl;
+                cout<<"---------------------------------------------------"<<endl;
+                cout<<"Maso incial de jugador... "<<endl;
                 valorMasoJugador=valorMaso(cartaAlAzar(),valorMasoJugador);
                 cout<<cartaActual<<endl;
-                cout<<"Valor del maso: "<<valorMasoJugador<<endl;
-                if(valorMasoJugador<21){
-                    cout<<"Desea coger una carta del maso, (S/N): ";
-                    cin>>generarCarta;
-                }
-            }while((generarCarta=='s' || generarCarta=='S') && valorMasoJugador<21);
-            cout<<"--------------------------------------------------"<<endl;
-            if(valorMasoJugador>21){
-                cout<<"TE HAS PASADO, HAS PERDIDO ESTA RONDA"<<endl;
-            }else{
-                cout<<"JUGANDO EL CRUPIER..."<<endl;
+                
                 do{
-                    valorMasoCrupier=valorMaso(cartaAlAzar(),valorMasoCrupier);
+                    valorMasoJugador=valorMaso(cartaAlAzar(),valorMasoJugador);
                     cout<<cartaActual<<endl;
-                }while(valorMasoCrupier<17);
-                cout<<"Valor del maso del crupier: "<<valorMasoCrupier;
-            }
+                    cout<<"Valor del maso: "<<valorMasoJugador<<endl;
+                    if(valorMasoJugador<21){
+                        cout<<"Desea coger una carta del maso, (S/N): ";
+                        cin>>generarCarta;
+                    }
+                }while((generarCarta=='s' || generarCarta=='S') && valorMasoJugador<21);
+                cout<<"--------------------------------------------------"<<endl;
+                if(valorMasoJugador>21){
+                    cout<<"TE HAS PASADO, HAS PERDIDO ESTA RONDA"<<endl;
+                    cout<<"Tu apuesta: "<<apuesta<<endl;
+                    cout<<"Tu nuevo saldo es: "<<calcularSaldo(apuesta,false)<<endl;
+                }else{
+                    cout<<"JUGANDO EL CRUPIER..."<<endl;
+                    do{
+                        valorMasoCrupier=valorMaso(cartaAlAzar(),valorMasoCrupier);
+                        cout<<cartaActual<<endl;
+                    }while(valorMasoCrupier<17);
+                    cout<<"Valor del maso del crupier: "<<valorMasoCrupier<<endl;
+
+                    if(valorMasoCrupier<=21){
+                        if(valorMasoJugador>valorMasoCrupier){
+                            cout<<"HAS GANADO ESTA RONDA"<<endl;
+                            cout<<"Tu apuesta: "<<apuesta<<endl;
+                            cout<<"Tu nuevo saldo es: "<<calcularSaldo(apuesta,true)<<endl;
+                        }else if(valorMasoJugador<valorMasoCrupier){
+                            cout<<"HAS PERDIDO ESTA RONDA"<<endl;
+                            cout<<"Tu apuesta: "<<apuesta<<endl;
+                            cout<<"Tu nuevo saldo es: "<<calcularSaldo(apuesta,false)<<endl;
+                        }else{
+                            cout<<"HAS EMPATADO ESTA RONDA"<<endl;
+                            cout<<"Tu apuesta: "<<apuesta<<endl;
+                            cout<<"Tu nuevo saldo es: "<<saldo<<endl;
+                        }
+                    }else{
+                        cout<<"HAS GANADO ESTA RONDA"<<endl;
+                        cout<<"Tu apuesta: "<<apuesta<<endl;
+                        cout<<"Tu nuevo saldo es: "<<calcularSaldo(apuesta,true)<<endl;
+                    }
+                }
+                cout<<"Desea jugar una nueva ronda (S/N): "<<endl;
+                cin>>nuevaRonda;
+            }while(nuevaRonda=='S' || nuevaRonda=='s');
+            menu();
             break;
         case 0:
             cout << "Saliendo del Casino. ¡Hasta pronto!" << endl;
@@ -167,4 +223,57 @@ int valorMaso(string carta, int valorDelMaso)
     }
 
     return valorDelMaso;
+}
+int calcularSaldo(double apuesta, bool resultado){
+    if(resultado){
+        apuesta*=2;
+        saldo+=apuesta;
+    }else{
+        saldo-=apuesta;
+    }
+    return saldo;
+}
+double validarApuestas(double monto){
+    bool montoInvalido = true;
+    do{
+        if(monto<=0){
+            cout<<"Monto invalido, ingrese una suma mayor a 0$ y menor a su saldo: "<<saldo<<"$"<<endl;
+            cin>>monto;
+        }else{
+            if(monto<=saldo){
+                montoInvalido=false;
+            }else{
+                cout<<"Ingrese un valor menor o igual a su saldo: "<<saldo<<"$"<<endl;
+                cin>>monto;
+            }
+        }
+    }while(montoInvalido);
+    return monto;
+}
+void SinSaldo(){
+    int continuar;
+    if(saldo<=0){
+        cout<<"Su saldo es 0$"<<endl;
+        cout<<"1. Ingresar nuevo saldo"<<endl;
+        cout<<"2. Salir del casino"<<endl;
+        cin>>continuar;
+        if(continuar==1){
+            cout<<"Ingrese su nuevo saldo: "<<endl;
+            cin>>saldo;
+            validarSaldo();
+        }else if (continuar==2){
+            exit(3);
+        }
+    }
+}
+void validarSaldo(){
+    bool saldoInvalido = true;
+    do{
+        if(saldo<0){
+            cout<<"Ingrese un saldo mayor a 0$: "<<endl;
+            cin>>saldo;
+        }else{
+            saldoInvalido = false;
+        }
+    }while(saldoInvalido);
 }
