@@ -4,11 +4,14 @@
 
 using namespace std;
 
+int valorDelMaso = 0;
+
 void menu();
 string cartaAlAzar();
-int valorMaso();
+int valorMaso(string carta);
 
 main(){
+    
     menu();
 }
 
@@ -35,9 +38,7 @@ void menu(){
             cout << "Bienvenido a Blackjack..." << endl;
             cout<<"Carta incial... "<<endl;
             do{
-                int prueba=valorMaso("8");
-                cout<<prueba;
-                cout<<"El valor del maso es: "/*<<valorMaso(cartaAlAzar())*/;
+                cout<<"El valor del maso es: "<<valorMaso(cartaAlAzar());
                 cout<<"Desea coger una carta del maso, (S/N): ";
                 cin>>generarCarta;
             }while(generarCarta=='s' || generarCarta=='S');
@@ -86,8 +87,9 @@ string cartaAlAzar(){
     cout << "Carta: " << cartas[indiceCarta] <<" de "<< palos[indicePalo] << endl;
     return cartas[indiceCarta];
 }
-int valorMaso(string carta){
-    int valorMaso;
+
+int valorMaso(string carta)
+{
     map<string, int> valores = {
         {"2", 2}, 
         {"3", 3}, 
@@ -102,12 +104,11 @@ int valorMaso(string carta){
         {"Q", 10}, 
         {"K", 10}
     };
-    if((valorMaso+11)>21){
+    if((valorDelMaso+11)>21){
         valores["A"] = 1;
     }else{
         valores["A"]= 11;
     }
-    valorMaso+=valores[carta];
-    return valorMaso;
+    valorDelMaso+=valores[carta];
+    return valorDelMaso;
 }
-
