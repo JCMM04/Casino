@@ -4,14 +4,20 @@
 
 using namespace std;
 
-int valorDelMaso = 0;
+//variables globales
+int valorMasoJugador = 0;
+int valorMasoCrupier = 0;
+int AsDelMaso=0;
+string cartaActual;
+string barajaMaso[52];
+string barajaPartida[52];
+
 
 void menu();
 string cartaAlAzar();
-int valorMaso(string carta);
+int valorMaso(string carta, int valorDelMaso);
 
 main(){
-    
     menu();
 }
 
@@ -36,12 +42,37 @@ void menu(){
         case 2:
             char generarCarta;
             cout << "Bienvenido a Blackjack..." << endl;
-            cout<<"Carta incial... "<<endl;
+            cout << "El crupier debe plantarse en 17 y robar en 16..."<<endl;
+            cout << "-------------------------------------------------"<<endl;
+            cout << "Maso del crupier..."<<endl;
+            valorMasoCrupier=valorMaso(cartaAlAzar(),valorMasoCrupier);
+            cout<<cartaActual<<endl;
+            cout<<"CALTA OCULTA"<<endl;
+            cout<<"---------------------------------------------------"<<endl;
+            cout<<"Maso incial de jugador... "<<endl;
+            valorMasoJugador=valorMaso(cartaAlAzar(),valorMasoJugador);
+            cout<<cartaActual<<endl;
+            
             do{
-                cout<<"El valor del maso es: "<<valorMaso(cartaAlAzar());
-                cout<<"Desea coger una carta del maso, (S/N): ";
-                cin>>generarCarta;
-            }while(generarCarta=='s' || generarCarta=='S');
+                valorMasoJugador=valorMaso(cartaAlAzar(),valorMasoJugador);
+                cout<<cartaActual<<endl;
+                cout<<"Valor del maso: "<<valorMasoJugador<<endl;
+                if(valorMasoJugador<21){
+                    cout<<"Desea coger una carta del maso, (S/N): ";
+                    cin>>generarCarta;
+                }
+            }while((generarCarta=='s' || generarCarta=='S') && valorMasoJugador<21);
+            cout<<"--------------------------------------------------"<<endl;
+            if(valorMasoJugador>21){
+                cout<<"TE HAS PASADO, HAS PERDIDO ESTA RONDA"<<endl;
+            }else{
+                cout<<"JUGANDO EL CRUPIER..."<<endl;
+                do{
+                    valorMasoCrupier=valorMaso(cartaAlAzar(),valorMasoCrupier);
+                    cout<<cartaActual<<endl;
+                }while(valorMasoCrupier<17);
+                cout<<"Valor del maso del crupier: "<<valorMasoCrupier;
+            }
             break;
         case 0:
             cout << "Saliendo del Casino. ¡Hasta pronto!" << endl;
@@ -54,7 +85,6 @@ void menu(){
 string cartaAlAzar(){
     const string cartas[] = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
     const string palos[] = {"Picas", "Corazon", "Diamante", "Trebol"};
-    string baraja[52];
     bool cartaRepetida;
     int indiceCarta;
     int indicePalo;
@@ -65,31 +95,34 @@ string cartaAlAzar(){
         srand(time(NULL));
         indiceCarta = rand() % 13;
         indicePalo = rand() % 4;
+        int posicionBaraja = 0;
 
         //Recorre el array en busca de cartas iguales
-        for(int i = 0; i <52 ; i++){
-            if(!baraja[i].empty()){ //determina si el espacio esta vacio, de ser asi se sale
-                if ((cartas[indiceCarta]+palos[indicePalo])==baraja[i]){
+        for( posicionBaraja = 0; posicionBaraja <52 ; posicionBaraja++){
+            if(!barajaMaso[posicionBaraja].empty()){ //determina si el espacio esta vacio, de ser asi se sale
+                if ((cartas[indiceCarta]+palos[indicePalo])==barajaMaso[posicionBaraja]){
                     cartaRepetida=true;
                     break;
                 }else{
                     cartaRepetida=false;
-                    break;
                 }
             }else{
-                baraja[i] = (cartas[indiceCarta]+palos[indicePalo]);
+                if(!cartaRepetida){
+                    barajaMaso[posicionBaraja] = (cartas[indiceCarta]+palos[indicePalo]);
+                    barajaPartida[posicionBaraja]=cartas[indiceCarta];
+                }
                 break;
             }
         }
     }while(cartaRepetida);
 
     // Mostrar la carta seleccionada al azar
-    cout << "Carta: " << cartas[indiceCarta] <<" de "<< palos[indicePalo] << endl;
+    cartaActual = (cartas[indiceCarta] +" de "+ palos[indicePalo]);
     return cartas[indiceCarta];
 }
-
-int valorMaso(string carta)
+int valorMaso(string carta, int valorDelMaso)
 {
+    int AsEncontrados = 0;
     map<string, int> valores = {
         {"2", 2}, 
         {"3", 3}, 
@@ -104,11 +137,34 @@ int valorMaso(string carta)
         {"Q", 10}, 
         {"K", 10}
     };
-    if((valorDelMaso+11)>21){
-        valores["A"] = 1;
-    }else{
-        valores["A"]= 11;
+    if(carta=="A"){
+        if((valorDelMaso+11)>21){
+            valores["A"] = 1;
+            AsDelMaso++;
+        }else{
+            valores["A"]= 11;
+        }
     }
+
     valorDelMaso+=valores[carta];
+
+    for(int i=0; i<52 ; i++){
+        if(valorDelMaso>21){
+            if(!barajaPartida[i].empty()){
+                if(barajaPartida[i]=="A"){
+                    AsEncontrados++;
+                    if(AsEncontrados>AsDelMaso){
+                        valorDelMaso-=10;
+                        AsDelMaso++;
+                    }
+                }
+            }else{
+                break;
+            }
+        }else{
+            break;
+        }
+    }
+
     return valorDelMaso;
 }
