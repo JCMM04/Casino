@@ -35,7 +35,9 @@ void menu(){
             cout << "Bienvenido a Blackjack..." << endl;
             cout<<"Carta incial... "<<endl;
             do{
-                cout<<"El valor del maso es: "<<valorMaso(cartaAlAzar());
+                int prueba=valorMaso("8");
+                cout<<prueba;
+                cout<<"El valor del maso es: "/*<<valorMaso(cartaAlAzar())*/;
                 cout<<"Desea coger una carta del maso, (S/N): ";
                 cin>>generarCarta;
             }while(generarCarta=='s' || generarCarta=='S');
@@ -52,15 +54,16 @@ string cartaAlAzar(){
     const string cartas[] = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
     const string palos[] = {"Picas", "Corazon", "Diamante", "Trebol"};
     string baraja[52];
-    bool cartaRepetida = true;
+    bool cartaRepetida;
     int indiceCarta;
     int indicePalo;
 
     //Evita repetir una carta y se almacena en el array baraja
     do{
         // Generar números aleatorios para seleccionar una carta y un palo
-        int indiceCarta = rand() % 13;
-        int indicePalo = rand() % 4;
+        srand(time(NULL));
+        indiceCarta = rand() % 13;
+        indicePalo = rand() % 4;
 
         //Recorre el array en busca de cartas iguales
         for(int i = 0; i <52 ; i++){
@@ -107,3 +110,4 @@ int valorMaso(string carta){
     valorMaso+=valores[carta];
     return valorMaso;
 }
+
