@@ -48,16 +48,19 @@ int marcoRuleta(int numeroApostado, int cActuales){
     int Numero[30]={30, 16, 9, 6, 11, 19, 15, 7, 8, 25, 17, 10, 29, 18, 27, 5, 1, 14, 22, 2, 21, 28, 3, 20, 13, 4, 23, 26, 12, 24};
     int n, bandera, contador, contador2;
     n=0;
+    Sleep(600);
     for(int i=0;i<resultado;i++){// hacer la animacion de la ruleta
-        //plantilla1(2);
+        
         Sleep(100);
         system("cls");
+        plantilla1(2);
         bandera=0;
         contador=0;
         contador2=30;
 
 ///////////////////////////////////////////////
         for(n=0;n<9;n++){
+            gotoxy(28, 4+(n*2));
             if(n==0){
                 bandera=9;
             }else{
@@ -121,6 +124,7 @@ void menuRuleta(){
         int apuesta[3];
         string reIntentar;
         opcion=0;
+ 
         do{
             
             system("cls");
@@ -182,13 +186,17 @@ void menuRuleta(){
             if (reIntentar=="Y" || reIntentar=="y"){
                 opcion=marcoRuleta(apuesta[0], vApostado);
                 if(opcion==1){
-                    cout<<"\n       ERES EL GANADOR";
+                    gotoxy(35, 35);
+                    cout<<"\nERES EL GANADOR";
                     cTotales=cTotales+(vApostado*30);
                     cout<<"     Creditos actuales: "<<cTotales;
                     //main();
                 }else{
-                    cout<<"\n       Sigue intentando perdiste";
+                    gotoxy(35, 35);
+                    cout<<"\nSigue intentando perdiste";
                     cTotales=cTotales-vApostado;
+                    gotoxy(35, 38);
+                    cout<<"\nCreditos actuales: "<<cTotales;
                     //main();
                 }
             }else{
@@ -224,23 +232,23 @@ void plantilla1(int n){
     }
     if(n==2){
         
-        cout<<"                          /---------------------------------------------------+"<<endl;
-        cout<<"                         /                                                     *"<<endl;
-        cout<<"                         *                                                     *"<<endl;
-        cout<<"                         *                                                     *"<<endl;
-        cout<<"                         *                                                     *"<<endl;
-        cout<<"                         *                                                     *"<<endl;
-        cout<<"                         *                                                     *"<<endl;
-        cout<<"                         *                                                     *"<<endl;
-        cout<<"                         *                                                     *"<<endl;
-        cout<<"                         *                                                     *"<<endl;
-        cout<<"                         *                                                     *"<<endl;
-        cout<<"                         *                                                     *"<<endl;
-        cout<<"                         *                                                     *"<<endl;
-        cout<<"                         *                                                     *"<<endl;
-        cout<<"                         *                                                     *"<<endl;
-        cout<<"                         *                                                      *"<<endl;
-        cout<<"                         +-----------------------------------------------------+"<<endl;
+        cout<<"\n\n\n                          /---------------------------------------------------+"<<endl;
+        cout<<"                         /                                    *"<<endl;
+        cout<<"                         *                                    *"<<endl;
+        cout<<"                         *                                    *"<<endl;                    
+        cout<<"                         *                                    *"<<endl;
+        cout<<"                         *                                    *"<<endl;
+        cout<<"                         *                                    *"<<endl;
+        cout<<"                         *                                    *"<<endl;
+        cout<<"                         *                                    *"<<endl;
+        cout<<"                         *                                    *"<<endl;
+        cout<<"                         *                                    *"<<endl;
+        cout<<"                         *                                    *"<<endl;
+        cout<<"                         *                                    *"<<endl;
+        cout<<"                         *                                    *"<<endl;
+        cout<<"                         *                                    *"<<endl;
+        cout<<"                         *                                    *"<<endl;
+        cout<<"                         +------------------------------------+"<<endl;
 
     }
 /*                                      30  16  9  6  11  19  15  7  8
