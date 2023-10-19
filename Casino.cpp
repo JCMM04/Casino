@@ -5,7 +5,13 @@
 #include<time.h>
 #include<string>
 using namespace std;
-
+int cTotales=5000;
+int numeroRuleta(int n, int numero, int i);
+int marcoRuleta(int numeroApostado, int cActuales);
+void menuRuleta();
+main(){
+    menuRuleta();
+}
 int numeroruleta(int n, int numero, int i){
     int par;
     par=n%2;
@@ -22,15 +28,17 @@ int numeroruleta(int n, int numero, int i){
     
 }
 
-void marcoRuleta(int opcion, int apuesta, int resultado){
-    int Numero[30]={30, 16, 9, 6, 11, 19, 15, 7, 8, 25, 17, 10, 29, 18, 27, 5, 1, 14, 22, 2, 21, 28, 3, 20, 13, 4, 23, 26, 12, 24};
+int marcoRuleta(int numeroApostado, int cActuales){
+    //int puntoApuestas=0;
+    int resultado;
+    //resultado=1+rand() % (31-1);
+    resultado=30;
 
+    int Numero[30]={30, 16, 9, 6, 11, 19, 15, 7, 8, 25, 17, 10, 29, 18, 27, 5, 1, 14, 22, 2, 21, 28, 3, 20, 13, 4, 23, 26, 12, 24};
     int n, bandera, contador, contador2;
-    
-    
     n=0;
     for(int i=0;i<resultado;i++){// hacer la animacion de la ruleta
-        Sleep(800);
+        Sleep(100);
         system("cls");
         bandera=0;
         contador=0;
@@ -87,25 +95,57 @@ void marcoRuleta(int opcion, int apuesta, int resultado){
                 contador++;
             }
             cout<<"\n\n";
-            
         }
-        
     }
-    if(Numero[resultado-1]==apuesta){
-        cout<<"Ganaste papucho";
+    if(numeroApostado==Numero[resultado-1]){
+        return 1;
     }else{
-        cout<<"Perdiste wapo";
+        return 0;
     }
 }
-main(){
-    int opcion, apuesta, vApostado, resultado;
-    srand(time(NULL));
-    cout<<"Para jugar la ruleta seleccione una de los tipos de apuesta a continuacion: "<<endl;
-    cout<<"1. Apostar a color."<<endl;
-    cout<<"2. Apostar a par o impar."<<endl;
-    cout<<"3. Apostar a numero."<<endl;
-    cout<<"Ingrese el numero de opcion a elegir: ";
-    cin>>opcion;
+
+void menuRuleta(){
+        int eleccion, opcion, vApostado;
+        int apuesta[3];
+        opcion=0;
+        srand(time(NULL));
+        cout<<"Creditos actuales: "<<cTotales;
+        cout<<"\n     +-------------------------------------+"<<endl;
+        cout<<"     |Bienvenido a la ruleta millonaria (: |"<<endl;    
+        cout<<"     +-------------------------------------+\n"<<endl;
+        cout<<"     Por favor ingrese el valor que desea apostar: ";
+        cin>>vApostado;
+
+        cout<<"     Ingresa el numero al que deseas apostar: "<<endl;
+        cin>>apuesta[0];
+        cout<<"     ----------\n"<<endl;
+        cout<<"     |1. JUGAR|"<<endl;
+        cout<<"     |0. salir|"<<endl;
+        cout<<"     ----------\n"<<endl;
+        cout<<"     Ingrese el numero de opcion a elegir, si deseas girar la ruleta escribe Y, si deseas regresar al menu principal digita N ";
+        cin>>eleccion;
+        if (eleccion==1){
+            opcion=marcoRuleta(apuesta[0], vApostado);
+            if(opcion==1){
+                cout<<"\n       ERES EL GANADOR";
+                cTotales=cTotales+(vApostado*30);
+                cout<<"     Creditos actuales: "<<cTotales;
+                main();
+            }else{
+                cout<<"\n       Sigue intentando perdiste";
+                cTotales=cTotales-vApostado;
+                main();
+            }
+        }
+        if(eleccion==0){
+            main();
+        }
+    
+    
+    
+    
+    
+    /*
     if(opcion==1){
         cout<<"Ingrese a que color desea apostar: ";
         cin>>apuesta;
@@ -118,17 +158,14 @@ main(){
 
         }else{
             if(opcion==3){
-                //detentesatanas=1+rand() % (31-1);
-                resultado=30;
-                cout<<"--"<<resultado<<"--"<<endl;
                 cout<<"Ingrese el numero al que desea apostar(1-30): ";
                 cin>>apuesta;
+                
             }
         }
-    }
-    
-    marcoRuleta(opcion, apuesta, resultado);
+    }*/
     
     
 }
+
 
