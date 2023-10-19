@@ -34,10 +34,15 @@ void menu(){
     system("cls"); //Borra lo anterior en la consola
     int opcionMenu;
     
-    cout << "¡Bienvenido al Casino!" << endl;
-    cout << "Ingrese su saldo inicial: "<<endl;
-    cin>>saldo;
-    validarSaldo();
+    cout << "¡Bienvenido al Casino!" <<endl;
+
+    if(saldo<=0){
+        cout << "Ingrese su saldo inicial: "<<endl;
+        cin>>saldo;
+        validarSaldo();
+    }else{
+        cout<<"Su saldo actual es: "<<saldo<<endl;
+    }
     
     cout << "Selecciona un juego:" << endl;
     cout << "1. Ruleta" << endl;
@@ -62,8 +67,14 @@ void menu(){
                 valorMasoCrupier=0;
                 valorMasoJugador=0;
                 AsDelMaso=0;
-                string barajaMaso[52];
-                string barajaPartida[52];
+
+                for(int i=0; i<52; i++){
+                    barajaMaso[i]="";
+                }
+                for(int i=0; i<52; i++){
+                    barajaPartida[i]="";
+                }
+                
                 system("cls");
                 SinSaldo();
                 cout << "Bienvenido a Blackjack..." << endl;
