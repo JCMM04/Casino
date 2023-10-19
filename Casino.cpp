@@ -5,6 +5,7 @@
 #include <iterator>
 #include <algorithm>
 #include <stdlib.h>
+#include <windows.h> 
 
 using namespace std;
 
@@ -25,6 +26,8 @@ int calcularSaldo(double apuesta, bool resultado);
 double validarApuestas(double monto);
 void SinSaldo();
 void validarSaldo();
+void gotoxy(int x,int y);
+void imprimirMarco(int opcion);
 
 main(){
     menu();
@@ -33,26 +36,36 @@ main(){
 void menu(){
     system("cls"); //Borra lo anterior en la consola
     int opcionMenu;
-    
-    cout << "¡Bienvenido al Casino!" <<endl;
+
+    imprimirMarco(1);
+    gotoxy(13,1);
+    cout<<"Bienvenido al Casino!"<<endl;
 
     if(saldo<=0){
-        cout << "Ingrese su saldo inicial: "<<endl;
+        gotoxy(2,3);
+        cout<<"Ingrese su saldo inicial ->"<<endl;
+        gotoxy(30,3);
         cin>>saldo;
         validarSaldo();
     }else{
+        gotoxy(2,3);
         cout<<"Su saldo actual es: "<<saldo<<endl;
     }
-    
+    gotoxy(1,5);
     cout << "Selecciona un juego:" << endl;
+    gotoxy(1,6);
     cout << "1. Ruleta" << endl;
+    gotoxy(1,7);
     cout << "2. Blackjack" << endl;
+    gotoxy(1,8);
     cout << "3. Datos y Saldo"<<endl;
-    cout << "0. Salir" << endl;
-
-    cout << "Ingresa tu elección: ";
+    gotoxy(1,9);
+    cout << "0. Salir"<<endl;
+    gotoxy(1,10);
+    cout << "Ingresa tu eleccion:"<<endl;
+    gotoxy(22,10);
     cin >> opcionMenu;
-
+    
     switch (opcionMenu) {
         case 1:
             cout << "Iniciar el juego de Ruleta..." << endl;
@@ -77,28 +90,39 @@ void menu(){
                 
                 system("cls");
                 SinSaldo();
-                cout << "Bienvenido a Blackjack..." << endl;
+                imprimirMarco(2);
+                gotoxy(10,1);
+                cout<<"...Bienvenido a Blackjack..."<<endl;
+                gotoxy(2,3);
                 cout<<"Su saldo actual es: "<<saldo<<endl;
-                cout << "Ingrese su apuesta: "<<endl;
+                gotoxy(2,5);
+                cout<<"Ingrese su apuesta: "<<endl;
+                gotoxy(21,5);
                 cin>>apuesta;
                 apuesta = validarApuestas(apuesta);
-                
-                cout << "El crupier debe plantarse en 17 y robar en 16..."<<endl;
-                cout << "-------------------------------------------------"<<endl;
-                cout << "Maso del crupier..."<<endl;
+                gotoxy(2,6);
+                cout << "El crupier debe plantarse en 17 y robar en 16"<<endl;
+                gotoxy(15,8);
+                cout << "MASO DEL CRUPIER"<<endl;
                 valorMasoCrupier=valorMaso(cartaAlAzar(),valorMasoCrupier);
+                gotoxy(2,9);
                 cout<<cartaActual<<endl;
+                gotoxy(2,10);
                 cout<<"CARTA OCULTA"<<endl;
-                cout<<"---------------------------------------------------"<<endl;
-                cout<<"Maso incial de jugador... "<<endl;
+                gotoxy(15,12);
+                cout<<"MASO DEL JUGADOR"<<endl;
                 valorMasoJugador=valorMaso(cartaAlAzar(),valorMasoJugador);
+                gotoxy(2,13);
                 cout<<cartaActual<<endl;
                 
                 do{
                     valorMasoJugador=valorMaso(cartaAlAzar(),valorMasoJugador);
+                    gotoxy(2,14);
                     cout<<cartaActual<<endl;
+                    gotoxy(2,15);
                     cout<<"Valor del maso: "<<valorMasoJugador<<endl;
                     if(valorMasoJugador<21){
+                        gotoxy(2,17);
                         cout<<"Desea coger una carta del maso, (S/N): ";
                         cin>>generarCarta;
                     }
@@ -287,4 +311,46 @@ void validarSaldo(){
             saldoInvalido = false;
         }
     }while(saldoInvalido);
+}
+void gotoxy(int x,int y){  
+      HANDLE hcon;  
+      hcon = GetStdHandle(STD_OUTPUT_HANDLE);  
+      COORD dwPos;  
+      dwPos.X = x;  
+      dwPos.Y= y;  
+      SetConsoleCursorPosition(hcon,dwPos);  
+ } 
+void imprimirMarco(int opcion){
+    if(opcion==1){
+        cout<<"+----------------------------------------------+"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"+----------------------------------------------+"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"+----------------------------------------------+"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"+----------------------------------------------+"<<endl;
+    }else if(opcion == 2){
+        cout<<"+----------------------------------------------+"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"+----------------------------------------------+"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"+----------------------------------------------+"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"+----------------------------------------------+"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"+----------------------------------------------+"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"|                                              |"<<endl;
+        cout<<"+----------------------------------------------+"<<endl;
+    }
 }
