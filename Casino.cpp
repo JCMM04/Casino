@@ -551,6 +551,14 @@ void menuRuleta(){
                     saldo=saldo+(vApostado*30);
                     cout<<"     Creditos actuales: "<<saldo;
                     //main();
+                    cout<<"\n¿Desea volver a intentarlo? Y/N: ";
+                    cin>>reIntentar;
+                    if(saldo==0){
+                        cout<<"\nEs imposible volver a jugar, por favor recargue nuevamente";
+                        reIntentar="N";
+                        Sleep(1500);
+                
+                    }
                 }else{
                     gotoxy(35, 35);
                     cout<<"\nSigue intentando perdiste";
@@ -558,20 +566,20 @@ void menuRuleta(){
                     gotoxy(35, 38);
                     cout<<"\nCreditos actuales: "<<saldo;
                     //main();
+                    cout<<"\n¿Desea volver a intentarlo? Y/N: ";
+                    cin>>reIntentar;
+                    if(saldo==0){
+                        cout<<"\nEs imposible volver a jugar, por favor recargue nuevamente";
+                        reIntentar="N";
+                        Sleep(1500);
+                
+                    }
                 }
             }else{
-                main();
+                main();/////////////////////////////////////////error
             }
-            cout<<"\n¿Desea volver a intentarlo? Y/N: ";
-            cin>>reIntentar;
-            if(saldo==0){
-                cout<<"\nEs imposible volver a jugar, por favor recargue nuevamente";
-                reIntentar="N";
-                Sleep(1500);
-                
-            }
+            
         }while(reIntentar=="Y" || reIntentar=="y");
-        main();
 }
 void plantilla1(int n){
     if(n==1){
