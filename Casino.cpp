@@ -106,18 +106,34 @@ int marcoRuleta(int numeroApostado, int cActuales){
 }
 
 void menuRuleta(){
-        int eleccion, opcion, vApostado;
+        int eleccion, opcion, vApostado, bandera;
         int apuesta[3];
         string reIntentar;
         opcion=0;
         do{
+            bandera=0;
             srand(time(NULL));
             cout<<"Creditos actuales: "<<cTotales;
             cout<<"\n     +-------------------------------------+"<<endl;
             cout<<"     |Bienvenido a la ruleta millonaria (: |"<<endl;    
             cout<<"     +-------------------------------------+\n"<<endl;
-            cout<<"     Por favor ingrese el valor que desea apostar: ";
-            cin>>vApostado;
+            do
+            {
+                if(bandera==0){
+                    cout<<"     Por favor ingrese el valor que desea apostar: ";
+                    cin>>vApostado;
+                }else{
+                    cout<<"     Ingrese un valor valido: ";
+                    cin>>vApostado;
+                }
+                
+                
+                if(vApostado>cTotales || vApostado<0){
+                    bandera=1;
+                }
+            } while (vApostado>cTotales || vApostado<=0);
+            
+                
 
             cout<<"     Ingresa el numero al que deseas apostar: "<<endl;
             cin>>apuesta[0];
@@ -133,11 +149,11 @@ void menuRuleta(){
                     cout<<"\n       ERES EL GANADOR";
                     cTotales=cTotales+(vApostado*30);
                     cout<<"     Creditos actuales: "<<cTotales;
-                    main();
+                    //main();
                 }else{
                     cout<<"\n       Sigue intentando perdiste";
                     cTotales=cTotales-vApostado;
-                    main();
+                    //main();
                 }
             }
             if(eleccion==0){
@@ -145,33 +161,14 @@ void menuRuleta(){
             }
             cout<<"\n¿Desea volver a intentarlo? Y/N: ";
             cin>>reIntentar;
-        }while(reIntentar=="Y" || reIntentar=="y");
-        
-    
-    
-    
-    
-    /*
-    if(opcion==1){
-        cout<<"Ingrese a que color desea apostar: ";
-        cin>>apuesta;
-    }else{
-        if(opcion==2){
-            cout<<"Ingrese el numero de opcion a la que desea apostar: "<<endl;
-            cout<<"1. Par"<<endl;
-            cout<<"2. Impar"<<endl;
-            cin>>apuesta;
-
-        }else{
-            if(opcion==3){
-                cout<<"Ingrese el numero al que desea apostar(1-30): ";
-                cin>>apuesta;
+            if(cTotales==0){
+                cout<<"\nEs imposible volver a jugar, por favor recargue nuevamente";
+                reIntentar="N";
+                Sleep(1500);
                 
             }
-        }
-    }*/
-    
-    
+        }while(reIntentar=="Y" || reIntentar=="y");
+        main();
 }
 
 
