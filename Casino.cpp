@@ -29,6 +29,7 @@ int numeroruleta(int n, int numero, int i){
 }
 
 int marcoRuleta(int numeroApostado, int cActuales){
+    
     //int puntoApuestas=0;
     int resultado;
     //resultado=1+rand() % (31-1);
@@ -107,40 +108,45 @@ int marcoRuleta(int numeroApostado, int cActuales){
 void menuRuleta(){
         int eleccion, opcion, vApostado;
         int apuesta[3];
+        string reIntentar;
         opcion=0;
-        srand(time(NULL));
-        cout<<"Creditos actuales: "<<cTotales;
-        cout<<"\n     +-------------------------------------+"<<endl;
-        cout<<"     |Bienvenido a la ruleta millonaria (: |"<<endl;    
-        cout<<"     +-------------------------------------+\n"<<endl;
-        cout<<"     Por favor ingrese el valor que desea apostar: ";
-        cin>>vApostado;
+        do{
+            srand(time(NULL));
+            cout<<"Creditos actuales: "<<cTotales;
+            cout<<"\n     +-------------------------------------+"<<endl;
+            cout<<"     |Bienvenido a la ruleta millonaria (: |"<<endl;    
+            cout<<"     +-------------------------------------+\n"<<endl;
+            cout<<"     Por favor ingrese el valor que desea apostar: ";
+            cin>>vApostado;
 
-        cout<<"     Ingresa el numero al que deseas apostar: "<<endl;
-        cin>>apuesta[0];
-        cout<<"     ----------\n"<<endl;
-        cout<<"     |1. JUGAR|"<<endl;
-        cout<<"     |0. salir|"<<endl;
-        cout<<"     ----------\n"<<endl;
-        cout<<"     Ingrese el numero de opcion a elegir, si deseas girar la ruleta escribe Y, si deseas regresar al menu principal digita N ";
-        cin>>eleccion;
-        if (eleccion==1){
-            opcion=marcoRuleta(apuesta[0], vApostado);
-            if(opcion==1){
-                cout<<"\n       ERES EL GANADOR";
-                cTotales=cTotales+(vApostado*30);
-                cout<<"     Creditos actuales: "<<cTotales;
-                main();
-            }else{
-                cout<<"\n       Sigue intentando perdiste";
-                cTotales=cTotales-vApostado;
+            cout<<"     Ingresa el numero al que deseas apostar: "<<endl;
+            cin>>apuesta[0];
+            cout<<"     ----------\n"<<endl;
+            cout<<"     |1. JUGAR|"<<endl;
+            cout<<"     |0. salir|"<<endl;
+            cout<<"     ----------\n"<<endl;
+            cout<<"     Ingrese el numero de opcion a elegir, si deseas girar la ruleta escribe Y, si deseas regresar al menu principal digita N ";
+            cin>>eleccion;
+            if (eleccion==1){
+                opcion=marcoRuleta(apuesta[0], vApostado);
+                if(opcion==1){
+                    cout<<"\n       ERES EL GANADOR";
+                    cTotales=cTotales+(vApostado*30);
+                    cout<<"     Creditos actuales: "<<cTotales;
+                    main();
+                }else{
+                    cout<<"\n       Sigue intentando perdiste";
+                    cTotales=cTotales-vApostado;
+                    main();
+                }
+            }
+            if(eleccion==0){
                 main();
             }
-        }
-        if(eleccion==0){
-            main();
-        }
-    
+            cout<<"\n¿Desea volver a intentarlo? Y/N: ";
+            cin>>reIntentar;
+        }while(reIntentar=="Y" || reIntentar=="y");
+        
     
     
     
