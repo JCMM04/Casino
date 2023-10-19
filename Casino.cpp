@@ -172,8 +172,8 @@ void menuRuleta(){
 }
 
 void plantilla1(int foto1){
-    cout<<"+----------------------------------------------+"<<endl;
-        cout<<"|                                              |"<<endl;
+        cout<<"+----------------------------------------------+"<<endl;
+        cout<<"|     Bienvenido a la ruleta millonaria        |"<<endl;
         cout<<"+----------------------------------------------+"<<endl;
         cout<<"|                                              |"<<endl;
         cout<<"+----------------------------------------------+"<<endl;
