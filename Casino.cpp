@@ -20,8 +20,6 @@ string cartaActual;
 string barajaMaso[52];
 string barajaPartida[52];
 
-int cTotales=5000;
-
 int numeroRuleta(int n, int numero, int i);
 int marcoRuleta(int numeroApostado, int cActuales);
 void menuRuleta();
@@ -368,6 +366,23 @@ void SinSaldo(){
         }
     }
 }
+void validarSaldo(){
+    bool saldoInvalido = true;
+    do{
+        if(saldo<=0){
+            gotoxy(49,3);
+            cout<<"Ingrese un saldo mayor a 0$: "<<endl;
+            gotoxy(30,3);
+            cout<<"                ";
+            gotoxy(30,3);
+            cin>>saldo;
+        }else{
+            saldoInvalido = false;
+        }
+    }while(saldoInvalido);
+    gotoxy(49,3);
+    cout<<"                             ";
+}
 
 int numeroRuleta(int n, int numero, int i){
     int par;
@@ -477,7 +492,7 @@ void menuRuleta(){
             srand(time(NULL));
             plantilla1(1);
             gotoxy(4,1);
-            cout<<"C "<<cTotales;
+            cout<<"Saldo actual "<<saldo;
             gotoxy(30, 4);
             cout<<"     Bienvenido a la ruleta millonaria\n"<<endl;    
             do
@@ -496,10 +511,10 @@ void menuRuleta(){
                 }
                 
                 
-                if(vApostado>cTotales || vApostado<0){
+                if(vApostado>saldo || vApostado<0){
                     bandera=1;
                 }
-            } while (vApostado>cTotales || vApostado<=0);
+            } while (vApostado>saldo || vApostado<=0);
             bandera=0;
                 
            
@@ -533,15 +548,15 @@ void menuRuleta(){
                 if(opcion==1){
                     gotoxy(35, 35);
                     cout<<"\nERES EL GANADOR";
-                    cTotales=cTotales+(vApostado*30);
-                    cout<<"     Creditos actuales: "<<cTotales;
+                    saldo=saldo+(vApostado*30);
+                    cout<<"     Creditos actuales: "<<saldo;
                     //main();
                 }else{
                     gotoxy(35, 35);
                     cout<<"\nSigue intentando perdiste";
-                    cTotales=cTotales-vApostado;
+                    saldo=saldo-vApostado;
                     gotoxy(35, 38);
-                    cout<<"\nCreditos actuales: "<<cTotales;
+                    cout<<"\nCreditos actuales: "<<saldo;
                     //main();
                 }
             }else{
@@ -549,7 +564,7 @@ void menuRuleta(){
             }
             cout<<"\n¿Desea volver a intentarlo? Y/N: ";
             cin>>reIntentar;
-            if(cTotales==0){
+            if(saldo==0){
                 cout<<"\nEs imposible volver a jugar, por favor recargue nuevamente";
                 reIntentar="N";
                 Sleep(1500);
