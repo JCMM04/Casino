@@ -22,7 +22,7 @@ void plantilla1(int n);
 main(){
     menuRuleta();
 }
-int numeroruleta(int n, int numero, int i){
+int numeroRuleta(int n, int numero, int i){
     int par;
     par=n%2;
     if(n==i){
@@ -85,7 +85,7 @@ int marcoRuleta(int numeroApostado, int cActuales){
             for(int ii=0; ii<bandera;ii++){
                 
                 if(n==0){
-                    numeroruleta(contador, Numero[contador], i);
+                    numeroRuleta(contador, Numero[contador], i);
                     
                     
                     
@@ -93,17 +93,17 @@ int marcoRuleta(int numeroApostado, int cActuales){
                     if(n>=1){
                         if(n<=6){
                             contador2=contador2-1;
-                            numeroruleta((contador2), Numero[(contador2)], i);
+                            numeroRuleta((contador2), Numero[(contador2)], i);
                             cout<<"                         ";
                             if(n==5){
                                 cout<<" ";
                             }
-                            numeroruleta(contador, Numero[contador], i);
+                            numeroRuleta(contador, Numero[contador], i);
                         }
                     }
                     if(n==7){
                         contador2=contador2-1;
-                        numeroruleta(contador2,Numero[contador2], i);
+                        numeroRuleta(contador2,Numero[contador2], i);
                         
                     }
                 }
