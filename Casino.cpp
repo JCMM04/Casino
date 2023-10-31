@@ -403,8 +403,7 @@ int marcoRuleta(int numeroApostado, int cActuales){
     
     //int puntoApuestas=0;
     int resultado;
-    //resultado=1+rand() % (31-1);
-    resultado=30;
+    resultado=1+rand() % (31-1);
 
     int Numero[30]={30, 16, 9, 6, 11, 19, 15, 7, 8, 25, 17, 10, 29, 18, 27, 5, 1, 14, 22, 2, 21, 28, 3, 20, 13, 4, 23, 26, 12, 24};
     int n, bandera, contador, contador2;
@@ -551,6 +550,15 @@ void menuRuleta(){
                     saldo=saldo+(vApostado*30);
                     cout<<"     Creditos actuales: "<<saldo;
                     //main();
+                    cout<<"\n¿Desea volver a intentarlo? Y/N: ";
+                    cin>>reIntentar;
+                    if(saldo==0){
+                        cout<<"\nEs imposible volver a jugar, por favor recargue nuevamente";
+                        reIntentar="N";
+                        Sleep(1500);
+                        break;
+                
+                    }
                 }else{
                     gotoxy(35, 35);
                     cout<<"\nSigue intentando perdiste";
@@ -558,20 +566,20 @@ void menuRuleta(){
                     gotoxy(35, 38);
                     cout<<"\nCreditos actuales: "<<saldo;
                     //main();
+                    cout<<"\n¿Desea volver a intentarlo? Y/N: ";
+                    cin>>reIntentar;
+                    if(saldo==0){
+                        cout<<"\nEs imposible volver a jugar, por favor recargue nuevamente";
+                        reIntentar="N";
+                        Sleep(1500);
+                
+                    }
                 }
             }else{
-                main();
+                main();/////////////////////////////////////////error
             }
-            cout<<"\n¿Desea volver a intentarlo? Y/N: ";
-            cin>>reIntentar;
-            if(saldo==0){
-                cout<<"\nEs imposible volver a jugar, por favor recargue nuevamente";
-                reIntentar="N";
-                Sleep(1500);
-                
-            }
+            
         }while(reIntentar=="Y" || reIntentar=="y");
-        main();
 }
 void plantilla1(int n){
     if(n==1){
