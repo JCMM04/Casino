@@ -575,11 +575,10 @@ void menuRuleta(){
                 
                     }
                 }
-            }else{
-                main();/////////////////////////////////////////error
             }
             
         }while(reIntentar=="Y" || reIntentar=="y");
+        main();
 }
 void plantilla1(int n){
     if(n==1){
@@ -599,7 +598,7 @@ void plantilla1(int n){
     }
     if(n==2){
         
-        cout<<"\n\n\n                          /---------------------------------------------------+"<<endl;
+        cout<<"\n\n\n                         /------------------------------------+"<<endl;
         cout<<"                         /                                    *"<<endl;
         cout<<"                         *                                    *"<<endl;
         cout<<"                         *                                    *"<<endl;                    
