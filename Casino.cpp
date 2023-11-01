@@ -54,6 +54,10 @@ void menu(){
         gotoxy(30,3);
         cin>>saldo;
         validarSaldo();
+        gotoxy(2,3);
+        cout<<"                                      "<<endl;
+        gotoxy(2,3);
+        cout<<"Su saldo actual es: "<<saldo<<endl;
     }else{
         gotoxy(2,3);
         cout<<"Su saldo actual es: "<<saldo<<endl;
@@ -93,7 +97,6 @@ void menu(){
                 for(int i=0; i<52; i++){
                     barajaPartida[i]="";
                 }
-                
                 system("cls");
                 //SinSaldo();
                 imprimirMarco(2);
@@ -134,6 +137,9 @@ void menu(){
                         gotoxy(24,16);
                         cout<<"del maso, (S/N) -> ";
                         cin>>generarCarta;
+                        gotoxy(43,16);
+                        cout<<" ";
+                        
                     }
                 }while((generarCarta=='s' || generarCarta=='S') && valorMasoJugador<21);
                 
@@ -243,7 +249,7 @@ string cartaAlAzar(){
 
         //Recorre el array en busca de cartas iguales
         for( posicionBaraja = 0; posicionBaraja <52 ; posicionBaraja++){
-            if(!barajaMaso[posicionBaraja].empty()){ //determina si el espacio esta vacio, de ser asi se sale
+            if(!barajaMaso[posicionBaraja].empty()){ //determina si el espacio esta vacio, de ser asi se sale, POSIBLE ERROR
                 if ((cartas[indiceCarta]+palos[indicePalo])==barajaMaso[posicionBaraja]){
                     cartaRepetida=true;
                     break;
