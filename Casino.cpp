@@ -415,16 +415,21 @@ int marcoRuleta(int numeroApostado, int cActuales){
         
         Sleep(100);
         system("cls");
-        plantilla1(2);
+        /*if(i==(resultado-1)){
+            plantilla1(3);
+        }else{
+            plantilla1(2);
+        }*/
+        plantilla1(3);
         bandera=0;
         contador=0;
-        contador2=30;
+        contador2=30;// se inicializa en 30 ya que es el numero de numeros que hay y esto no corresponde al numero generado sino a la posicion que ocupa este numero
 
 
         for(n=0;n<9;n++){ //Se indica n<9 ya que 9 son la cantidad de filas de las que consta el marco de la ruleta
-            gotoxy(28, 4+(n*2));
+            gotoxy(28, 6+(n*2));
             if(n==0){
-                bandera=9;
+                bandera=9; //preestablece la cantidad de ciclos que tendra el bucle generador de filas
             }else{
                 
                 if(n==7){
@@ -439,23 +444,21 @@ int marcoRuleta(int numeroApostado, int cActuales){
                     }
 
                 }
-                //
+                
             }
-            
-/////////////////////////////////////////////////
 
             for(int ii=0; ii<bandera;ii++){
                 
                 if(n==0){
-                    numeroRuleta(contador, Numero[contador], i);
-                    
+                    numeroRuleta(contador, Numero[contador], i); //dependiendo de en que fila este se va a generar el color del contador de una forma u otra;
+                    //se usa un contador para generar el color de los numeros de la primera fila y la columna de la derecha
                     
                     
                 }else{
                     if(n>=1){
                         if(n<=6){
-                            contador2=contador2-1;
-                            numeroRuleta((contador2), Numero[(contador2)], i);
+                            contador2--;
+                            numeroRuleta((contador2), Numero[(contador2)], i);// el contador2 se encargara de crear los numeros de la izquierda y la ultima fila
                             cout<<"                         ";
                             if(n==5){
                                 cout<<" ";
@@ -464,7 +467,7 @@ int marcoRuleta(int numeroApostado, int cActuales){
                         }
                     }
                     if(n==7){
-                        contador2=contador2-1;
+                        contador2--;
                         numeroRuleta(contador2,Numero[contador2], i);
                         
                     }
@@ -496,8 +499,7 @@ void menuRuleta(){
             cout<<"Saldo actual "<<saldo;
             gotoxy(30, 4);
             cout<<"     Bienvenido a la ruleta millonaria\n"<<endl;    
-            do
-            {
+            do{
                 if(bandera==0){
                     gotoxy(28,7);
                     cout<<"Por favor ingrese el valor que desea apostar: ";
@@ -547,28 +549,29 @@ void menuRuleta(){
             if (reIntentar=="Y" || reIntentar=="y"){
                 opcion=marcoRuleta(apuesta[0], vApostado);
                 if(opcion==1){
-                    gotoxy(35, 35);
-                    cout<<"\nERES EL GANADOR";
+                    
+                    cout<<"ERES EL GANADOR";
                     saldo=saldo+(vApostado*30);
                     cout<<"     Creditos actuales: "<<saldo;
                     //main();
                     cout<<"\n¿Desea volver a intentarlo? Y/N: ";
                     cin>>reIntentar;
                 }else{
-                    gotoxy(35, 35);
-                    cout<<"\nSigue intentando perdiste";
+                    
+                    
+                    cout<<"                      Sigue intentando perdiste";
                     saldo=saldo-vApostado;
-                    gotoxy(35, 38);
-                    cout<<"\nCreditos actuales: "<<saldo;
+                    
+                    cout<<"\n                      Creditos actuales: "<<saldo;
                     //main();
-                    cout<<"\n¿Desea volver a intentarlo? Y/N: ";
+                    cout<<"\n                      ¿Desea volver a intentarlo? Y/N: ";
                     cin>>reIntentar;
                     if(saldo==0){
                         if(reIntentar=="Y" || reIntentar=="y"){
-                            cout<<"\nEs imposible volver a jugar, por favor recargue nuevamente";
+                            cout<<"\n               Es imposible volver a jugar, por favor recargue nuevamente";
                             Sleep(1500);
                         }else{
-                            cout<<"Saliendo del casino, vuelva pronto...";
+                            cout<<"               Saliendo del casino, vuelva pronto...";
                             exit(3);
                         }
                         reIntentar="N";
@@ -600,25 +603,56 @@ void plantilla1(int n){
         cout<<"                         -------------------------------------------------------"<<endl;
     }
     if(n==2){
-        
-        cout<<"\n\n\n                         /------------------------------------+"<<endl;
-        cout<<"                         /                                    *"<<endl;
-        cout<<"                         *                                    *"<<endl;
-        cout<<"                         *                                    *"<<endl;                    
-        cout<<"                         *                                    *"<<endl;
-        cout<<"                         *                                    *"<<endl;
-        cout<<"                         *                                    *"<<endl;
-        cout<<"                         *                                    *"<<endl;
-        cout<<"                         *                                    *"<<endl;
-        cout<<"                         *                                    *"<<endl;
-        cout<<"                         *                                    *"<<endl;
-        cout<<"                         *                                    *"<<endl;
-        cout<<"                         *                                    *"<<endl;
-        cout<<"                         *                                    *"<<endl;
-        cout<<"                         *                                    *"<<endl;
-        cout<<"                         *                                    *"<<endl;
-        cout<<"                         +------------------------------------+"<<endl;
-
+        cout<<"\n\n\n                  ______________________________________________________"<<endl;
+        cout<<"                  |                                                   |"<<endl;
+        cout<<"                  |       +-----------------------------------+       |"<<endl;
+        cout<<"                  |       +                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;                    
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       +-----------------------------------+       |"<<endl;
+        cout<<"                  |                                                   |"<<endl;
+        cout<<"                  |___________________________________________________|"<<endl;
+    }
+    if(n==3){
+        cout<<"\n\n\n                  ______________________________________________________"<<endl;
+        cout<<"                  |                                                   |"<<endl;
+        cout<<"                  |       +-----------------------------------+       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;                    
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       *                                   *       |"<<endl;
+        cout<<"                  |       +-----------------------------------+       |"<<endl;
+        cout<<"                  |                                                   |"<<endl;
+        cout<<"                  |                                                   |"<<endl;
+        cout<<"                  |                                                   |"<<endl;
+        cout<<"                  |                                                   |"<<endl;
+        cout<<"                  |                                                   |"<<endl;
+        cout<<"                  |                                                   |"<<endl;
+        cout<<"                  |                                                   |"<<endl;
+        cout<<"                  |___________________________________________________|"<<endl;
     }
 }
 void validarOpcion(){
