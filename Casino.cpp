@@ -12,6 +12,8 @@
 using namespace std;
 
 //variables globales
+int opcionMenu;
+int bandera;
 int saldo=0;
 int valorMasoJugador = 0;
 int valorMasoCrupier = 0;
@@ -42,7 +44,7 @@ main(){
 
 void menu(){
     system("cls"); //Borra lo anterior en la consola
-    int opcionMenu;
+    
 
     imprimirMarco(1);
     gotoxy(13,1);
@@ -68,20 +70,21 @@ void menu(){
     cout << "1. Ruleta" << endl;
     gotoxy(1,7);
     cout << "2. Blackjack" << endl;
-    gotoxy(1,8);
-    cout << "3. Datos y Saldo"<<endl;
+    //gotoxy(1,8);
+    //cout << "3. Datos y Saldo"<<endl;
     gotoxy(1,9);
     cout << "0. Salir"<<endl;
     gotoxy(1,10);
     cout << "Ingresa tu eleccion:"<<endl;
     gotoxy(22,10);
-    cin >> opcionMenu;
+    if(bandera==0){
+        cin >> opcionMenu;
+    }
     
-    switch (opcionMenu) {
-        case 1:
-            menuRuleta();
-            break;
-        case 2:
+    if(opcionMenu==1){
+        menuRuleta();
+    }else{
+        if(opcionMenu==2){
             char generarCarta;
             double apuesta;
             char nuevaRonda;
@@ -222,16 +225,15 @@ void menu(){
                 }
             }while((nuevaRonda=='S' || nuevaRonda=='s') && saldo>0);
             menu();
-            break;
-        case 0:
-            gotoxy(0,13);
-            cout << "Saliendo del Casino. Hasta pronto!" << endl;
-            break; // Salir del programa
-        default:
-            cout << "Opción no válida. Por favor, elige una opción válida." << endl;
-            break;
+        }else{
+            if(opcionMenu==0){
+                gotoxy(0,13);
+                cout << "Saliendo del Casino. Hasta pronto!" << endl;
+            }
+        }
     }
 }
+
 string cartaAlAzar(){
     const string cartas[] = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
     const string palos[] = {"Picas", "Corazon", "Diamante", "Trebol"};
@@ -390,7 +392,7 @@ void validarSaldo(){
     cout<<"                             ";
 }
 
-int numeroRuleta(int n, int numero, int i){
+int numeroRuleta(int n, int numero, int i){//se encarga de darle color a la ruleta
     int par;
     par=n%2;
     if(n==i){
@@ -407,7 +409,7 @@ int numeroRuleta(int n, int numero, int i){
 }
 int marcoRuleta(int numeroApostado, int cActuales){
     
-    //int puntoApuestas=0;
+    
     int resultado;
     resultado=1+rand() % (31-1);
 
@@ -424,8 +426,8 @@ int marcoRuleta(int numeroApostado, int cActuales){
         contador=0;
         contador2=30;
 
-///////////////////////////////////////////////
-        for(n=0;n<9;n++){
+
+        for(n=0;n<9;n++){ //Se indica n<9 ya que 9 son la cantidad de filas de las que consta el marco de la ruleta
             gotoxy(28, 4+(n*2));
             if(n==0){
                 bandera=9;
@@ -443,7 +445,7 @@ int marcoRuleta(int numeroApostado, int cActuales){
                     }
 
                 }
-                
+                //
             }
             
 /////////////////////////////////////////////////
@@ -485,7 +487,7 @@ int marcoRuleta(int numeroApostado, int cActuales){
     }
 }
 void menuRuleta(){
-        int eleccion, opcion, vApostado, bandera;
+        int eleccion, opcion, vApostado;
         int apuesta[3];
         string reIntentar;
         opcion=0;
@@ -558,13 +560,6 @@ void menuRuleta(){
                     //main();
                     cout<<"\n¿Desea volver a intentarlo? Y/N: ";
                     cin>>reIntentar;
-                    if(saldo==0){
-                        cout<<"\nEs imposible volver a jugar, por favor recargue nuevamente";
-                        reIntentar="N";
-                        Sleep(1500);
-                        break;
-                
-                    }
                 }else{
                     gotoxy(35, 35);
                     cout<<"\nSigue intentando perdiste";
@@ -575,15 +570,23 @@ void menuRuleta(){
                     cout<<"\n¿Desea volver a intentarlo? Y/N: ";
                     cin>>reIntentar;
                     if(saldo==0){
-                        cout<<"\nEs imposible volver a jugar, por favor recargue nuevamente";
+                        if(reIntentar=="Y" || reIntentar=="y"){
+                            cout<<"\nEs imposible volver a jugar, por favor recargue nuevamente";
+                            Sleep(1500);
+                        }else{
+                            cout<<"Saliendo del casino, vuelva pronto...";
+                            exit(3);
+                        }
                         reIntentar="N";
-                        Sleep(1500);
+                        
                 
                     }
+                    
                 }
             }
             
         }while(reIntentar=="Y" || reIntentar=="y");
+        
         main();
 }
 void plantilla1(int n){
@@ -623,21 +626,9 @@ void plantilla1(int n){
         cout<<"                         +------------------------------------+"<<endl;
 
     }
-/*                                      30  16  9  6  11  19  15  7  8
+}
+void validarOpcion(){
 
-                                        24                           25
-
-                                        12                           17
-
-                                        26                           10
-
-                                        23                           29
-
-                                        4                            18
-
-                                        13                           27
-
-                                        20  3  28  21  2  22  14  1  5*/
 }
 void gotoxy(int x,int y){  
       HANDLE hcon;  
