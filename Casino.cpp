@@ -15,7 +15,8 @@ using namespace std;
 int saldo=0;
 int valorMasoJugador = 0;
 int valorMasoCrupier = 0;
-int AsDelMaso=0;
+int AsDelMasoJugador=0;
+int AsDelMasoCrupier=0;
 string cartaActual;
 string barajaMaso[52];
 string barajaPartida[52];
@@ -28,7 +29,7 @@ void plantilla1(int n);
 
 void menu();
 string cartaAlAzar();
-int valorMaso(string carta, int valorDelMaso);
+int valorMaso(string carta, int valorDelMaso,bool jugador);
 int calcularSaldo(double apuesta, bool resultado);
 double validarApuestas(double monto);
 void SinSaldo();
@@ -89,7 +90,8 @@ void menu(){
             do{
                 valorMasoCrupier=0;
                 valorMasoJugador=0;
-                AsDelMaso=0;
+                AsDelMasoJugador=0;
+                AsDelMasoCrupier=0;
 
                 for(int i=0; i<52; i++){
                     barajaMaso[i]="";
@@ -113,19 +115,19 @@ void menu(){
                 cout << "El crupier debe plantarse en 17 y robar en 16"<<endl;
                 gotoxy(15,8);
                 cout << "MASO DEL CRUPIER"<<endl;
-                valorMasoCrupier=valorMaso(cartaAlAzar(),valorMasoCrupier);
+                valorMasoCrupier=valorMaso(cartaAlAzar(),valorMasoCrupier,false);
                 gotoxy(2,9);
                 cout<<cartaActual<<endl;
                 gotoxy(2,10);
                 cout<<"CARTA OCULTA"<<endl;
                 gotoxy(15,12);
                 cout<<"MASO DEL JUGADOR"<<endl;
-                valorMasoJugador=valorMaso(cartaAlAzar(),valorMasoJugador);
+                valorMasoJugador=valorMaso(cartaAlAzar(),valorMasoJugador,true);
                 gotoxy(2,13);
                 cout<<cartaActual<<endl;
                 int generadorMaso=14;
                 do{
-                    valorMasoJugador=valorMaso(cartaAlAzar(),valorMasoJugador);
+                    valorMasoJugador=valorMaso(cartaAlAzar(),valorMasoJugador,true);
                     gotoxy(2,generadorMaso);
                     generadorMaso++;
                     cout<<cartaActual<<endl;
@@ -139,7 +141,6 @@ void menu(){
                         cin>>generarCarta;
                         gotoxy(43,16);
                         cout<<" ";
-                        
                     }
                 }while((generarCarta=='s' || generarCarta=='S') && valorMasoJugador<21);
                 
@@ -158,7 +159,7 @@ void menu(){
                     cout<<"...JUGANDO EL CRUPIER..."<<endl;
                     int generadorMaso=3;
                     do{
-                        valorMasoCrupier=valorMaso(cartaAlAzar(),valorMasoCrupier);
+                        valorMasoCrupier=valorMaso(cartaAlAzar(),valorMasoCrupier,false);
                         gotoxy(51,generadorMaso);
                         generadorMaso++;
                         cout<<cartaActual<<endl;
@@ -249,7 +250,7 @@ string cartaAlAzar(){
 
         //Recorre el array en busca de cartas iguales
         for( posicionBaraja = 0; posicionBaraja <52 ; posicionBaraja++){
-            if(!barajaMaso[posicionBaraja].empty()){ //determina si el espacio esta vacio, de ser asi se sale, POSIBLE ERROR
+            if(!barajaMaso[posicionBaraja].empty()){ //Determina si el espacio esta vacio, de ser asi se sale, POSIBLE ERROR
                 if ((cartas[indiceCarta]+palos[indicePalo])==barajaMaso[posicionBaraja]){
                     cartaRepetida=true;
                     break;
@@ -270,9 +271,16 @@ string cartaAlAzar(){
     cartaActual = (cartas[indiceCarta] +" de "+ palos[indicePalo]);
     return cartas[indiceCarta];
 }
-int valorMaso(string carta, int valorDelMaso)
-{
+int valorMaso(string carta, int valorDelMaso, bool jugador){
     int AsEncontrados = 0;
+    int AsDelMaso=0;
+
+    if(jugador){
+        AsDelMaso=AsDelMasoJugador;
+    }else{
+        AsDelMaso=AsDelMasoCrupier;
+    }
+
     map<string, int> valores = {
         {"2", 2}, 
         {"3", 3}, 
@@ -292,7 +300,7 @@ int valorMaso(string carta, int valorDelMaso)
             valores["A"] = 1;
             AsDelMaso++;
         }else{
-            valores["A"]= 11;
+            valores["A"] = 11;
         }
     }
 
@@ -303,7 +311,7 @@ int valorMaso(string carta, int valorDelMaso)
             if(!barajaPartida[i].empty()){
                 if(barajaPartida[i]=="A"){
                     AsEncontrados++;
-                    if(AsEncontrados>AsDelMaso){
+                    if(AsEncontrados-AsDelMasoCrupier>AsDelMaso){
                         valorDelMaso-=10;
                         AsDelMaso++;
                     }
@@ -314,6 +322,12 @@ int valorMaso(string carta, int valorDelMaso)
         }else{
             break;
         }
+    }
+    
+    if(jugador){
+        AsDelMasoJugador=AsDelMaso;
+    }else{
+        AsDelMasoCrupier=AsDelMaso;
     }
 
     return valorDelMaso;
