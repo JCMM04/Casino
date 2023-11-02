@@ -81,7 +81,7 @@ void menu(){
     if(bandera==0){
         cin >> opcionMenu;
     }
-    
+//
     if(opcionMenu==1){
         menuRuleta();
     }else{
