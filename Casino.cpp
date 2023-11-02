@@ -428,7 +428,7 @@ int marcoRuleta(int numeroApostado, int cActuales){
         }else{
             plantilla1(2);
         }*/
-        plantilla1(3);
+        plantilla1(2);
         bandera=0;
         contador=0;
         contador2=30;// se inicializa en 30 ya que es el numero de numeros que hay y esto no corresponde al numero generado sino a la posicion que ocupa este numero
