@@ -13,7 +13,6 @@ using namespace std;
 
 //variables globales
 int opcionMenu;
-int bandera;
 int saldo=0;
 int valorMasoJugador = 0;
 int valorMasoCrupier = 0;
@@ -43,6 +42,7 @@ main(){
 }
 
 void menu(){
+    do{
     system("cls"); //Borra lo anterior en la consola
     
 
@@ -60,172 +60,180 @@ void menu(){
         gotoxy(2,3);
         cout<<"Su saldo actual es: "<<saldo<<endl;
     }
-    gotoxy(1,5);
-    cout << "Selecciona un juego:" << endl;
-    gotoxy(1,6);
-    cout << "1. Ruleta" << endl;
-    gotoxy(1,7);
-    cout << "2. Blackjack" << endl;
-    //gotoxy(1,8);
-    //cout << "3. Datos y Saldo"<<endl;
-    gotoxy(1,9);
-    cout << "0. Salir"<<endl;
-    gotoxy(1,10);
-    cout << "Ingresa tu eleccion:"<<endl;
-    gotoxy(22,10);
-    if(bandera==0){
-        cin >> opcionMenu;
-    }
     
-    if(opcionMenu==1){
-        menuRuleta();
-    }else{
-        if(opcionMenu==2){
-            char generarCarta;
-            double apuesta;
-            char nuevaRonda;
-           
-            do{
-                valorMasoCrupier=0;
-                valorMasoJugador=0;
-                AsDelMaso=0;
-
-                for(int i=0; i<52; i++){
-                    barajaMaso[i]="";
-                }
-                for(int i=0; i<52; i++){
-                    barajaPartida[i]="";
-                }
-                
-                system("cls");
-                //SinSaldo();
-                imprimirMarco(2);
-                gotoxy(10,1);
-                cout<<"...Bienvenido a Blackjack..."<<endl;
-                gotoxy(2,3);
-                cout<<"Su saldo actual es: "<<saldo<<endl;
-                gotoxy(2,5);
-                cout<<"Ingrese su apuesta: "<<endl;
-                gotoxy(21,5);
-                cin>>apuesta;
-                apuesta = validarApuestas(apuesta);
-                gotoxy(2,6);
-                cout << "El crupier debe plantarse en 17 y robar en 16"<<endl;
-                gotoxy(15,8);
-                cout << "MASO DEL CRUPIER"<<endl;
-                valorMasoCrupier=valorMaso(cartaAlAzar(),valorMasoCrupier);
-                gotoxy(2,9);
-                cout<<cartaActual<<endl;
-                gotoxy(2,10);
-                cout<<"CARTA OCULTA"<<endl;
-                gotoxy(15,12);
-                cout<<"MASO DEL JUGADOR"<<endl;
-                valorMasoJugador=valorMaso(cartaAlAzar(),valorMasoJugador);
-                gotoxy(2,13);
-                cout<<cartaActual<<endl;
-                int generadorMaso=14;
+        
+        gotoxy(1,5);
+        cout << "Selecciona un juego:" << endl;
+        gotoxy(1,6);
+        cout << "1. Ruleta" << endl;
+        gotoxy(1,7);
+        cout << "2. Blackjack" << endl;
+        //gotoxy(1,8);
+        //cout << "3. Datos y Saldo"<<endl;
+        gotoxy(1,9);
+        cout << "0. Salir"<<endl;
+        gotoxy(1,10);
+    
+        cout << "Ingresa tu eleccion:"<<endl;
+        gotoxy(22,10);
+        cin >> opcionMenu;
+        
+        if(opcionMenu==1){
+            menuRuleta();
+        }else{
+            if(opcionMenu==2){
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                char generarCarta;
+                double apuesta;
+                char nuevaRonda;
+            
                 do{
-                    valorMasoJugador=valorMaso(cartaAlAzar(),valorMasoJugador);
-                    gotoxy(2,generadorMaso);
-                    generadorMaso++;
-                    cout<<cartaActual<<endl;
-                    gotoxy(25,13);
-                    cout<<"Valor del maso: "<<valorMasoJugador<<endl;
-                    if(valorMasoJugador<21){
-                        gotoxy(24,15);
-                        cout<<"Desea coger una carta"<<endl; 
-                        gotoxy(24,16);
-                        cout<<"del maso, (S/N) -> ";
-                        cin>>generarCarta;
-                    }
-                }while((generarCarta=='s' || generarCarta=='S') && valorMasoJugador<21);
-                
-                imprimirMarco(3);
+                    valorMasoCrupier=0;
+                    valorMasoJugador=0;
+                    AsDelMaso=0;
 
-                if(valorMasoJugador>21){
-                    gotoxy(51,12);
-                    cout<<"TE HAS PASADO, HAS PERDIDO ESTA RONDA"<<endl;
-                    gotoxy(51,14);
-                    cout<<"Tu apuesta: "<<apuesta<<endl;
-                    gotoxy(51,15);
-                    cout<<"Tu nuevo saldo es: "<<calcularSaldo(apuesta,false)<<endl;
-                }else{
-                    imprimirMarco(4);
-                    gotoxy(62,1);
-                    cout<<"...JUGANDO EL CRUPIER..."<<endl;
-                    int generadorMaso=3;
+                    for(int i=0; i<52; i++){
+                        barajaMaso[i]="";
+                    }
+                    for(int i=0; i<52; i++){
+                        barajaPartida[i]="";
+                    }
+                    
+                    system("cls");
+                    //SinSaldo();
+                    imprimirMarco(2);
+                    gotoxy(10,1);
+                    cout<<"...Bienvenido a Blackjack..."<<endl;
+                    gotoxy(2,3);
+                    cout<<"Su saldo actual es: "<<saldo<<endl;
+                    gotoxy(2,5);
+                    cout<<"Ingrese su apuesta: "<<endl;
+                    gotoxy(21,5);
+                    cin>>apuesta;
+                    apuesta = validarApuestas(apuesta);
+                    gotoxy(2,6);
+                    cout << "El crupier debe plantarse en 17 y robar en 16"<<endl;
+                    gotoxy(15,8);
+                    cout << "MASO DEL CRUPIER"<<endl;
+                    valorMasoCrupier=valorMaso(cartaAlAzar(),valorMasoCrupier);
+                    gotoxy(2,9);
+                    cout<<cartaActual<<endl;
+                    gotoxy(2,10);
+                    cout<<"CARTA OCULTA"<<endl;
+                    gotoxy(15,12);
+                    cout<<"MASO DEL JUGADOR"<<endl;
+                    valorMasoJugador=valorMaso(cartaAlAzar(),valorMasoJugador);
+                    gotoxy(2,13);
+                    cout<<cartaActual<<endl;
+                    int generadorMaso=14;
                     do{
-                        valorMasoCrupier=valorMaso(cartaAlAzar(),valorMasoCrupier);
-                        gotoxy(51,generadorMaso);
+                        valorMasoJugador=valorMaso(cartaAlAzar(),valorMasoJugador);
+                        gotoxy(2,generadorMaso);
                         generadorMaso++;
                         cout<<cartaActual<<endl;
-                        gotoxy(2,10);
-                        cout<<"                  "<<endl;
-                    }while(valorMasoCrupier<17);
-                    gotoxy(66,3);
-                    cout<<"Valor del maso del crupier: "<<valorMasoCrupier<<endl;
-                    if(valorMasoCrupier<=21){
-                        if(valorMasoJugador>valorMasoCrupier){
+                        gotoxy(25,13);
+                        cout<<"Valor del maso: "<<valorMasoJugador<<endl;
+                        if(valorMasoJugador<21){
+                            gotoxy(24,15);
+                            cout<<"Desea coger una carta"<<endl; 
+                            gotoxy(24,16);
+                            cout<<"del maso, (S/N) -> ";
+                            cin>>generarCarta;
+                        }
+                    }while((generarCarta=='s' || generarCarta=='S') && valorMasoJugador<21);
+                    
+                    imprimirMarco(3);
+
+                    if(valorMasoJugador>21){
+                        gotoxy(51,12);
+                        cout<<"TE HAS PASADO, HAS PERDIDO ESTA RONDA"<<endl;
+                        gotoxy(51,14);
+                        cout<<"Tu apuesta: "<<apuesta<<endl;
+                        gotoxy(51,15);
+                        cout<<"Tu nuevo saldo es: "<<calcularSaldo(apuesta,false)<<endl;
+                    }else{
+                        imprimirMarco(4);
+                        gotoxy(62,1);
+                        cout<<"...JUGANDO EL CRUPIER..."<<endl;
+                        int generadorMaso=3;
+                        do{
+                            valorMasoCrupier=valorMaso(cartaAlAzar(),valorMasoCrupier);
+                            gotoxy(51,generadorMaso);
+                            generadorMaso++;
+                            cout<<cartaActual<<endl;
+                            gotoxy(2,10);
+                            cout<<"                  "<<endl;
+                        }while(valorMasoCrupier<17);
+                        gotoxy(66,3);
+                        cout<<"Valor del maso del crupier: "<<valorMasoCrupier<<endl;
+                        if(valorMasoCrupier<=21){
+                            if(valorMasoJugador>valorMasoCrupier){
+                                gotoxy(51,12);
+                                cout<<"HAS GANADO ESTA RONDA"<<endl;
+                                gotoxy(51,14);
+                                cout<<"Tu apuesta: "<<apuesta<<endl;
+                                gotoxy(51,15);
+                                cout<<"Tu nuevo saldo es: "<<calcularSaldo(apuesta,true)<<endl;
+                            }else if(valorMasoJugador<valorMasoCrupier){
+                                gotoxy(51,12);
+                                cout<<"HAS PERDIDO ESTA RONDA"<<endl;
+                                gotoxy(51,14);
+                                cout<<"Tu apuesta: "<<apuesta<<endl;
+                                gotoxy(51,15);
+                                cout<<"Tu nuevo saldo es: "<<calcularSaldo(apuesta,false)<<endl;
+                            }else{
+                                gotoxy(51,12);
+                                cout<<"HAS EMPATADO ESTA RONDA"<<endl;
+                                gotoxy(51,14);
+                                cout<<"Tu apuesta: "<<apuesta<<endl;
+                                gotoxy(51,15);
+                                cout<<"Tu nuevo saldo es: "<<saldo<<endl;
+                            }
+                        }else{
                             gotoxy(51,12);
                             cout<<"HAS GANADO ESTA RONDA"<<endl;
                             gotoxy(51,14);
                             cout<<"Tu apuesta: "<<apuesta<<endl;
                             gotoxy(51,15);
                             cout<<"Tu nuevo saldo es: "<<calcularSaldo(apuesta,true)<<endl;
-                        }else if(valorMasoJugador<valorMasoCrupier){
-                            gotoxy(51,12);
-                            cout<<"HAS PERDIDO ESTA RONDA"<<endl;
-                            gotoxy(51,14);
-                            cout<<"Tu apuesta: "<<apuesta<<endl;
-                            gotoxy(51,15);
-                            cout<<"Tu nuevo saldo es: "<<calcularSaldo(apuesta,false)<<endl;
-                        }else{
-                            gotoxy(51,12);
-                            cout<<"HAS EMPATADO ESTA RONDA"<<endl;
-                            gotoxy(51,14);
-                            cout<<"Tu apuesta: "<<apuesta<<endl;
-                            gotoxy(51,15);
-                            cout<<"Tu nuevo saldo es: "<<saldo<<endl;
+                        }
+                    }
+                    if(saldo<=0){
+                        int nuevoSaldo;
+                        gotoxy(75,14);
+                        cout<<"Debes ingresar"; 
+                        gotoxy(75,15);
+                        cout<<"un nuevo saldo";
+                        gotoxy(51,17);
+                        cout<<"1.Ingresar saldo / 2.Salir del casino -> "<<endl;
+                        gotoxy(92,17);
+                        cin>>nuevoSaldo;
+                        if(nuevoSaldo==2){
+                            gotoxy(0,20);
+                            cout<<"Saliendo del casino, vuelva pronto...";
+                            exit(3);
                         }
                     }else{
-                        gotoxy(51,12);
-                        cout<<"HAS GANADO ESTA RONDA"<<endl;
-                        gotoxy(51,14);
-                        cout<<"Tu apuesta: "<<apuesta<<endl;
-                        gotoxy(51,15);
-                        cout<<"Tu nuevo saldo es: "<<calcularSaldo(apuesta,true)<<endl;
+                        gotoxy(51,17);
+                        cout<<"Desea jugar una nueva ronda (S/N) -> "<<endl;
+                        gotoxy(88,17);
+                        cin>>nuevaRonda;
                     }
-                }
-                if(saldo<=0){
-                    int nuevoSaldo;
-                    gotoxy(75,14);
-                    cout<<"Debes ingresar"; 
-                    gotoxy(75,15);
-                    cout<<"un nuevo saldo";
-                    gotoxy(51,17);
-                    cout<<"1.Ingresar saldo / 2.Salir del casino -> "<<endl;
-                    gotoxy(92,17);
-                    cin>>nuevoSaldo;
-                    if(nuevoSaldo==2){
-                        gotoxy(0,20);
-                        cout<<"Saliendo del casino, vuelva pronto...";
-                        exit(3);
-                    }
+                }while((nuevaRonda=='S' || nuevaRonda=='s') && saldo>0);
+                menu();
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            }else{
+                if(opcionMenu==0){
+                    gotoxy(0,13);
+                    cout << "Saliendo del Casino. Hasta pronto!" << endl;
                 }else{
-                    gotoxy(51,17);
-                    cout<<"Desea jugar una nueva ronda (S/N) -> "<<endl;
-                    gotoxy(88,17);
-                    cin>>nuevaRonda;
+                    cout<<"\nIngrese una opcion valida...";
+                    Sleep(1000);
                 }
-            }while((nuevaRonda=='S' || nuevaRonda=='s') && saldo>0);
-            menu();
-        }else{
-            if(opcionMenu==0){
-                gotoxy(0,13);
-                cout << "Saliendo del Casino. Hasta pronto!" << endl;
             }
         }
-    }
+    }while(opcionMenu!=0 || opcionMenu !=1 || opcionMenu!=2);
+    
 }
 
 string cartaAlAzar(){
@@ -484,6 +492,7 @@ int marcoRuleta(int numeroApostado, int cActuales){
     }
 }
 void menuRuleta(){
+        int bandera;
         int eleccion, opcion, vApostado;
         int apuesta[3];
         string reIntentar;
